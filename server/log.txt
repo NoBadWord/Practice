@@ -1,0 +1,119 @@
+2024-03-27 18:22:32.592 INF Info: Create TCP socket
+2024-03-27 18:22:32.592 INF Info: Open TCP socket
+2024-03-27 18:22:32.595 INF Info: Login to the broker
+2024-03-27 18:22:32.595 INF Info: Open channel
+2024-03-27 18:22:32.597 INF Info: Declare queue
+2024-03-27 18:22:32.598 INF Info: Bind queue
+2024-03-27 18:22:32.602 INF Info: Consume
+2024-03-27 18:22:59.884 INF Info: Create TCP socket
+2024-03-27 18:22:59.885 INF Info: Open TCP socket
+2024-03-27 18:22:59.887 INF Info: Login to the broker
+2024-03-27 18:22:59.888 INF Info: Open channel
+2024-03-27 18:22:59.890 INF Info: Declare queue
+2024-03-27 18:22:59.891 INF Info: Bind queue
+2024-03-27 18:22:59.891 INF Info: Consume
+2024-03-27 18:24:14.528 INF Info: Create TCP socket
+2024-03-27 18:24:14.529 INF Info: Open TCP socket
+2024-03-27 18:24:14.530 INF Info: Login to the broker
+2024-03-27 18:24:14.531 INF Info: Open channel
+2024-03-27 18:24:14.533 INF Info: Declare queue
+2024-03-27 18:24:14.533 INF Info: Bind queue
+2024-03-27 18:24:14.534 INF Info: Consume
+2024-03-27 18:29:50.047 INF Info: Create TCP socket
+2024-03-27 18:29:50.047 INF Info: Open TCP socket
+2024-03-27 18:29:50.054 INF Info: Login to the broker
+2024-03-27 18:29:50.055 INF Info: Open channel
+2024-03-27 18:29:50.057 INF Info: Declare queue
+2024-03-27 18:29:50.057 INF Info: Bind queue
+2024-03-27 18:29:50.058 INF Info: Consume
+2024-03-27 18:29:53.820 DBG Debug: Received <<  33  >> from <<  "ruslan"  >>
+2024-03-27 18:29:53.820 DBG Debug: Sent <<  66  >> from <<  "ruslan"  >>
+2024-03-27 18:29:56.137 DBG Debug: Received <<  464  >> from <<  "ruslan"  >>
+2024-03-27 18:29:56.137 DBG Debug: Sent <<  928  >> from <<  "ruslan"  >>
+2024-03-27 18:31:35.212 INF Info: Create TCP socket
+2024-03-27 18:31:35.213 INF Info: Open TCP socket
+2024-03-27 18:31:35.214 INF Info: Login to the broker
+2024-03-27 18:31:35.215 INF Info: Open channel
+2024-03-27 18:31:35.217 INF Info: Declare queue
+2024-03-27 18:31:35.218 INF Info: Bind queue
+2024-03-27 18:31:35.218 INF Info: Consume
+2024-03-27 18:31:38.890 DBG Debug: Received <<  33  >> from <<  "ruslan"  >>
+2024-03-27 18:31:38.890 DBG Debug: Sent <<  66  >> to <<  "ruslan"  >>
+2024-03-27 18:31:40.662 DBG Debug: Received <<  4646646  >> from <<  "ruslan"  >>
+2024-03-27 18:31:40.663 DBG Debug: Sent <<  9293292  >> to <<  "ruslan"  >>
+2024-03-27 18:32:39.867 INF Info: Create TCP socket
+2024-03-27 18:32:39.868 INF Info: Open TCP socket
+2024-03-27 18:32:39.870 INF Info: Login to the broker
+2024-03-27 18:32:39.870 INF Info: Open channel
+2024-03-27 18:32:39.878 INF Info: Declare queue
+2024-03-27 18:32:39.879 INF Info: Bind queue
+2024-03-27 18:32:39.879 INF Info: Consume
+2024-03-27 18:32:43.174 DBG Debug: Received <<  33  >> from <<  "ruslan"  >>
+2024-03-27 18:32:43.174 DBG Debug: Sent <<  66  >> to <<  "ruslan"  >>
+2024-03-27 18:32:44.398 DBG Debug: Received <<  123  >> from <<  "ruslan"  >>
+2024-03-27 18:32:44.398 DBG Debug: Sent <<  246  >> to <<  "ruslan"  >>
+2024-03-27 18:33:05.628 INF Info: Create TCP socket
+2024-03-27 18:33:05.629 INF Info: Open TCP socket
+2024-03-27 18:33:05.633 INF Info: Login to the broker
+2024-03-27 18:33:05.633 INF Info: Open channel
+2024-03-27 18:33:05.635 INF Info: Declare queue
+2024-03-27 18:33:05.636 INF Info: Bind queue
+2024-03-27 18:33:05.636 INF Info: Consume
+2024-03-27 18:33:07.856 DBG Debug: Received <<  122  >> from <<  "ruslan"  >>
+2024-03-27 18:33:07.856 DBG Debug: Sent <<  244  >> to <<  "ruslan"  >>
+2024-03-27 18:33:26.859 INF Info: Create TCP socket
+2024-03-27 18:33:26.859 INF Info: Open TCP socket
+2024-03-27 18:33:26.863 INF Info: Login to the broker
+2024-03-27 18:33:26.863 INF Info: Open channel
+2024-03-27 18:33:26.868 INF Info: Declare queue
+2024-03-27 18:33:26.869 INF Info: Bind queue
+2024-03-27 18:33:26.869 INF Info: Consume
+2024-03-27 18:33:34.250 DBG Debug: Received <<  112  >> from <<  "ruslan"  >>
+2024-03-27 18:33:34.250 DBG Debug: Sent <<  224  >> to <<  "ruslan"  >>
+2024-03-27 18:58:17.977 INF Info: Create TCP socket
+2024-03-27 18:58:17.977 INF Info: Open TCP socket
+2024-03-27 18:58:17.979 INF Info: Login to the broker
+2024-03-27 18:58:17.980 INF Info: Open channel
+2024-03-27 18:58:17.983 INF Info: Declare queue
+2024-03-27 18:58:17.984 INF Info: Bind queue
+2024-03-27 18:58:17.984 INF Info: Consume
+2024-03-27 18:58:20.162 DBG Debug: Received <<  33  >> from <<  "ruslan"  >>
+2024-03-27 18:58:20.163 DBG Debug: Sent <<  66  >> to <<  "ruslan"  >>
+2024-03-27 18:58:21.989 DBG Debug: Received <<  464564  >> from <<  "ruslan"  >>
+2024-03-27 18:58:21.989 DBG Debug: Sent <<  929128  >> to <<  "ruslan"  >>
+2024-03-27 18:59:43.575 INF Info: Create TCP socket
+2024-03-27 18:59:43.576 INF Info: Open TCP socket
+2024-03-27 18:59:43.578 INF Info: Login to the broker
+2024-03-27 18:59:43.578 INF Info: Open channel
+2024-03-27 18:59:43.582 INF Info: Declare queue
+2024-03-27 18:59:43.583 INF Info: Bind queue
+2024-03-27 18:59:43.583 INF Info: Consume
+2024-03-27 18:59:49.643 DBG Debug: Received <<  11  >> from <<  "ruslan"  >>
+2024-03-27 18:59:49.643 DBG Debug: Sent << 22 >> to << "ruslan" >>
+2024-03-27 18:59:51.081 DBG Debug: Received <<  22  >> from <<  "ruslan"  >>
+2024-03-27 18:59:51.081 DBG Debug: Sent << 44 >> to << "ruslan" >>
+2024-03-27 19:00:42.892 INF Info: Create TCP socket
+2024-03-27 19:00:42.893 INF Info: Open TCP socket
+2024-03-27 19:00:42.895 INF Info: Login to the broker
+2024-03-27 19:00:42.896 INF Info: Open channel
+2024-03-27 19:00:42.898 INF Info: Declare queue
+2024-03-27 19:00:42.899 INF Info: Bind queue
+2024-03-27 19:00:42.899 INF Info: Consume
+2024-03-27 19:00:47.449 DBG Debug: Received <<  12  >> from <<  "ruslan"  >>
+2024-03-27 19:00:47.449 DBG Debug: Sent << 24 >> to << "ruslan" >>
+2024-03-27 19:01:31.335 INF Info: Create TCP socket
+2024-03-27 19:01:31.336 INF Info: Open TCP socket
+2024-03-27 19:01:31.338 INF Info: Login to the broker
+2024-03-27 19:01:31.338 INF Info: Open channel
+2024-03-27 19:01:31.342 INF Info: Declare queue
+2024-03-27 19:01:31.342 INF Info: Bind queue
+2024-03-27 19:01:31.343 INF Info: Consume
+2024-03-27 19:01:37.498 INF Info: Create TCP socket
+2024-03-27 19:01:37.498 INF Info: Open TCP socket
+2024-03-27 19:01:37.499 INF Info: Login to the broker
+2024-03-27 19:01:37.500 INF Info: Open channel
+2024-03-27 19:01:37.502 INF Info: Declare queue
+2024-03-27 19:01:37.502 INF Info: Bind queue
+2024-03-27 19:01:37.503 INF Info: Consume
+2024-03-27 19:01:43.283 DBG Debug: Received <<  12  >> from <<  "ruslan"  >>
+2024-03-27 19:01:43.283 DBG Debug: Sent << 24 >> to << "ruslan" >>
