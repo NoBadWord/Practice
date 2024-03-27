@@ -6,11 +6,8 @@ QString logLvl;
 
 void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    // Открываем поток записи в файл
     QTextStream out(m_logFile.data());
-    // Записываем дату записи
-    //out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz ");
-    // По типу определяем, к какому уровню относится сообщение
+
     switch (type)
     {
     case QtInfoMsg:
@@ -46,10 +43,8 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
             << "FTL "<< context.category << ": "<< msg << endl;
         break;
     }
-    // Записываем в вывод категорию сообщения и само сообщение
-    //
-    //
-    out.flush();    // Очищаем буферизированные данные
+
+    out.flush();
 }
 
 TInterface::TInterface(QWidget *parent)
