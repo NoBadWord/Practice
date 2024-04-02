@@ -42,5 +42,9 @@ private:
     char const* routingkey;
     char const* exchange;
     std::string userID;
+
+    void connectRabbit();
+    void sendMessage();
+    void consumeMessage();
 };
 #endif // TINTERFACE_H

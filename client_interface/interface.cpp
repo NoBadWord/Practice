@@ -53,6 +53,7 @@ TInterface::TInterface(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle(QString("Удвоение через брокер"));
+    //connectRabbit();
 
 }
 
@@ -64,10 +65,8 @@ TInterface::~TInterface()
     delete ui;
 }
 
-
-void TInterface::on_SendNumberBtn_clicked()
+void TInterface::connectRabbit()
 {
-
     QSettings settings(QString("settings.ini"),QSettings::IniFormat);
 
     QString logPath = settings.value("Logging/logPath").toString();
@@ -127,16 +126,13 @@ void TInterface::on_SendNumberBtn_clicked()
     {
       qCritical(logCritical()) << "Out of memory while copying queue name";
     }
+}
 
+void TInterface::sendMessage()
+{
     TestTask::Messages::Request messageRequest;
-    TestTask::Messages::Response messageResponse;
     std::string serialized_message;
     int messagebody;
-
-    amqp_basic_properties_t props;
-    props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG |
-                   AMQP_BASIC_DELIVERY_MODE_FLAG | AMQP_BASIC_REPLY_TO_FLAG |
-                   AMQP_BASIC_CORRELATION_ID_FLAG;
     messagebody = ui->numberLineEdit->text().toInt();
     messageRequest.set_id(userID);
     messageRequest.set_req(messagebody);
@@ -146,9 +142,14 @@ void TInterface::on_SendNumberBtn_clicked()
     result.len = serialized_message.size();
     result.bytes = (void*)serialized_message.c_str();
 
+    amqp_basic_properties_t props;
+    props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG |
+                   AMQP_BASIC_DELIVERY_MODE_FLAG | AMQP_BASIC_REPLY_TO_FLAG |
+                   AMQP_BASIC_CORRELATION_ID_FLAG;
+
     props.content_type = result;
 
-    props.delivery_mode = 2; /* persistent delivery mode */
+    props.delivery_mode = 2;
     props.reply_to = amqp_bytes_malloc_dup(reply_to_queue);
     if (props.reply_to.bytes == NULL)
     {
@@ -168,11 +169,16 @@ void TInterface::on_SendNumberBtn_clicked()
     amqp_basic_consume(conn, 1, reply_to_queue, amqp_empty_bytes, 0, 1, 0,
                        amqp_empty_table);
     amqp_get_rpc_reply(conn);
+}
 
-
-
-
-////////////////////////////////////
+void TInterface::consumeMessage()
+{
+    TestTask::Messages::Response messageResponse;
+    std::string serialized_message;
+    amqp_basic_properties_t props;
+    props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG |
+                   AMQP_BASIC_DELIVERY_MODE_FLAG | AMQP_BASIC_REPLY_TO_FLAG |
+                   AMQP_BASIC_CORRELATION_ID_FLAG;
     amqp_rpc_reply_t res;
     amqp_envelope_t envelope;
     timeval timeout;
@@ -196,8 +202,71 @@ void TInterface::on_SendNumberBtn_clicked()
     }
 
     amqp_destroy_envelope(&envelope);
+}
 
+void TInterface::on_SendNumberBtn_clicked()
+{
+    QSettings settings(QString("settings.ini"),QSettings::IniFormat);
 
+    QString logPath = settings.value("Logging/logPath").toString();
+    m_logFile.reset(new QFile(logPath));
+    m_logFile.data()->open(QFile::Append | QFile::Text);
+    logLvl = settings.value("Logging/logLevel").toString();
+    qInstallMessageHandler(messageHandler);
+
+    QString strBuf = settings.value("Network/hostname").toString();
+    QByteArray byteArray = strBuf.toUtf8();
+    const char* hostname = byteArray.constData();
+    int port = settings.value("Network/port").toInt();
+    QString strBuf2 = settings.value("Network/routingkey").toString();
+    QByteArray byteArray2 = strBuf2.toUtf8();
+    routingkey = byteArray2.constData();
+    QString strBuf3 = settings.value("Network/exchange").toString();
+    QByteArray byteArray3 = strBuf3.toUtf8();
+    exchange = byteArray3.constData();
+
+    QString strBuf4 = settings.value("User/id").toString();
+    userID = strBuf4.toStdString();
+
+    int status;
+
+    conn = amqp_new_connection();
+
+    socket = amqp_tcp_socket_new(conn);
+    if (socket)
+    {
+        qInfo(logInfo()) << "Create TCP socket";
+    }
+
+    status = amqp_socket_open(socket, hostname, port);
+    if (status == AMQP_STATUS_OK)
+    {
+        qInfo(logInfo()) << "Open TCP socket";
+    }
+
+    if (amqp_login(conn, "/", 0, 131072, 0, AMQP_SASL_METHOD_PLAIN,"guest", "guest").reply_type == AMQP_RESPONSE_NORMAL)
+    {
+        qInfo(logInfo()) << "Login to the broker";
+    }
+    amqp_channel_open(conn, 1);
+    if (amqp_get_rpc_reply(conn).reply_type == AMQP_RESPONSE_NORMAL)
+    {
+        qInfo(logInfo()) << "Open channel";
+    }
+
+    amqp_queue_declare_ok_t *r = amqp_queue_declare(
+            conn, 1, amqp_empty_bytes, 0, 0, 0, 1, amqp_empty_table);
+    if (amqp_get_rpc_reply(conn).reply_type == AMQP_RESPONSE_NORMAL)
+    {
+        qInfo(logInfo()) << "Declare queue";
+    }
+    reply_to_queue = amqp_bytes_malloc_dup(r->queue);
+    if (reply_to_queue.bytes == NULL)
+    {
+      qCritical(logCritical()) << "Out of memory while copying queue name";
+    }
+    sendMessage();
+    consumeMessage();
 }
 
 
