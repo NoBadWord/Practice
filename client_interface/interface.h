@@ -39,9 +39,6 @@ private:
     amqp_socket_t *socket = NULL;
     amqp_connection_state_t conn;
     amqp_bytes_t reply_to_queue;
-    char const* routingkey;
-    char const* exchange;
-    std::string userID;
 
     void connectRabbit();
     void sendMessage();

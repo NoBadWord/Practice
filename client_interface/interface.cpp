@@ -53,7 +53,7 @@ TInterface::TInterface(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle(QString("Удвоение через брокер"));
-    //connectRabbit();
+    connectRabbit();
 
 }
 
@@ -79,15 +79,6 @@ void TInterface::connectRabbit()
     QByteArray byteArray = strBuf.toUtf8();
     const char* hostname = byteArray.constData();
     int port = settings.value("Network/port").toInt();
-    QString strBuf2 = settings.value("Network/routingkey").toString();
-    QByteArray byteArray2 = strBuf2.toUtf8();
-    routingkey = byteArray2.constData();
-    QString strBuf3 = settings.value("Network/exchange").toString();
-    QByteArray byteArray3 = strBuf3.toUtf8();
-    exchange = byteArray3.constData();
-
-    QString strBuf4 = settings.value("User/id").toString();
-    userID = strBuf4.toStdString();
 
     int status;
 
@@ -130,6 +121,20 @@ void TInterface::connectRabbit()
 
 void TInterface::sendMessage()
 {
+    QSettings settings(QString("settings.ini"),QSettings::IniFormat);
+
+    QString logPath = settings.value("Logging/logPath").toString();
+    m_logFile.reset(new QFile(logPath));
+    m_logFile.data()->open(QFile::Append | QFile::Text);
+    QString strBuf = settings.value("Network/routingkey").toString();
+    QByteArray byteArray = strBuf.toUtf8();
+    char const* routingkey = byteArray.constData();
+    QString strBuf2 = settings.value("Network/exchange").toString();
+    QByteArray byteArray2 = strBuf2.toUtf8();
+    char const* exchange = byteArray2.constData();
+    QString strBuf3 = settings.value("User/id").toString();
+    std::string userID = strBuf3.toStdString();
+
     TestTask::Messages::Request messageRequest;
     std::string serialized_message;
     int messagebody;
@@ -173,6 +178,14 @@ void TInterface::sendMessage()
 
 void TInterface::consumeMessage()
 {
+    QSettings settings(QString("settings.ini"),QSettings::IniFormat);
+
+    QString logPath = settings.value("Logging/logPath").toString();
+    m_logFile.reset(new QFile(logPath));
+    m_logFile.data()->open(QFile::Append | QFile::Text);
+    QString strBuf = settings.value("Network/routingkey").toString();
+    QByteArray byteArray = strBuf.toUtf8();
+
     TestTask::Messages::Response messageResponse;
     std::string serialized_message;
     amqp_basic_properties_t props;
@@ -206,71 +219,9 @@ void TInterface::consumeMessage()
 
 void TInterface::on_SendNumberBtn_clicked()
 {
-    QSettings settings(QString("settings.ini"),QSettings::IniFormat);
-
-    QString logPath = settings.value("Logging/logPath").toString();
-    m_logFile.reset(new QFile(logPath));
-    m_logFile.data()->open(QFile::Append | QFile::Text);
-    logLvl = settings.value("Logging/logLevel").toString();
-    qInstallMessageHandler(messageHandler);
-
-    QString strBuf = settings.value("Network/hostname").toString();
-    QByteArray byteArray = strBuf.toUtf8();
-    const char* hostname = byteArray.constData();
-    int port = settings.value("Network/port").toInt();
-    QString strBuf2 = settings.value("Network/routingkey").toString();
-    QByteArray byteArray2 = strBuf2.toUtf8();
-    routingkey = byteArray2.constData();
-    QString strBuf3 = settings.value("Network/exchange").toString();
-    QByteArray byteArray3 = strBuf3.toUtf8();
-    exchange = byteArray3.constData();
-
-    QString strBuf4 = settings.value("User/id").toString();
-    userID = strBuf4.toStdString();
-
-    int status;
-
-    conn = amqp_new_connection();
-
-    socket = amqp_tcp_socket_new(conn);
-    if (socket)
-    {
-        qInfo(logInfo()) << "Create TCP socket";
-    }
-
-    status = amqp_socket_open(socket, hostname, port);
-    if (status == AMQP_STATUS_OK)
-    {
-        qInfo(logInfo()) << "Open TCP socket";
-    }
-
-    if (amqp_login(conn, "/", 0, 131072, 0, AMQP_SASL_METHOD_PLAIN,"guest", "guest").reply_type == AMQP_RESPONSE_NORMAL)
-    {
-        qInfo(logInfo()) << "Login to the broker";
-    }
-    amqp_channel_open(conn, 1);
-    if (amqp_get_rpc_reply(conn).reply_type == AMQP_RESPONSE_NORMAL)
-    {
-        qInfo(logInfo()) << "Open channel";
-    }
-
-    amqp_queue_declare_ok_t *r = amqp_queue_declare(
-            conn, 1, amqp_empty_bytes, 0, 0, 0, 1, amqp_empty_table);
-    if (amqp_get_rpc_reply(conn).reply_type == AMQP_RESPONSE_NORMAL)
-    {
-        qInfo(logInfo()) << "Declare queue";
-    }
-    reply_to_queue = amqp_bytes_malloc_dup(r->queue);
-    if (reply_to_queue.bytes == NULL)
-    {
-      qCritical(logCritical()) << "Out of memory while copying queue name";
-    }
     sendMessage();
     consumeMessage();
 }
-
-
-
 
 void TInterface::on_settingsMenuBtn_triggered()
 {
